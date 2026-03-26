@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Babylonica&family=Caveat:wght@400..700&family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;700;900&family=Playfair+Display:ital@0;1&display=swap');
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'AlibabaPuHuiTi';
+  src: url('https://puhuiti.oss-cn-hangzhou.aliyuncs.com/AlibabaPuHuiTi-3/AlibabaPuHuiTi-3-55-Regular/AlibabaPuHuiTi-3-55-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AlibabaPuHuiTi';
+  src: url('https://puhuiti.oss-cn-hangzhou.aliyuncs.com/AlibabaPuHuiTi-3/AlibabaPuHuiTi-3-85-Bold/AlibabaPuHuiTi-3-85-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-display: "Anton", sans-serif;
+  --font-sans: "Inter", "AlibabaPuHuiTi", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", serif;
+  --font-handwriting: "Caveat", cursive;
+  --font-babylonica: "Babylonica", cursive;
+  --font-alibaba: "AlibabaPuHuiTi", sans-serif;
+  --font-mengyuan: "Noto Sans SC", "AlibabaPuHuiTi", sans-serif;
+  
+  --color-neon-green: #ccff00;
+  --color-neon-pink: #ff66ff;
+  --color-neon-blue: #00ffff;
+  --color-brutal-black: #0a0a0a;
+  --color-flow-purple: #5544ff;
+  --color-flow-dark: #1a1a3a;
+}
+
+body {
+  background-color: var(--color-flow-purple);
+  color: white;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+@media (pointer: fine) {
+  body,
+  a,
+  button,
+  [role="button"],
+  input,
+  select,
+  textarea {
+    cursor: none !important;
+  }
+}
