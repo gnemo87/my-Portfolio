@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { works } from "../data/works";
@@ -26,7 +26,6 @@ export function Works() {
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     if (videoRef.current && duration > 0) {
-      // Map global scroll progress [0, 1] through this section to video time
       videoRef.current.currentTime = latest * duration;
     }
   });
@@ -51,7 +50,6 @@ export function Works() {
         style={{ zIndex: 0 }}
       />
 
-
       {/* ── Centered title ── */}
       <div className="flex flex-col items-center px-4 relative z-[2]">
         <AnimatedHeading
@@ -70,9 +68,62 @@ export function Works() {
         </motion.span>
       </div>
 
-      {/* ── Fan card container ── */}
+      {/* ── Mobile: vertical card list (hidden on md+) ── */}
+      <div className="flex flex-col items-center gap-5 md:hidden relative z-[2] px-5 mt-10 pb-4">
+        {displayWorks.map((work, idx) => (
+          <motion.div
+            key={work.id}
+            className="w-full cursor-pointer select-none"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.1 + idx * 0.12 }}
+            onClick={() => navigate(`/work/${work.id}`)}
+          >
+            <div
+              className="w-full relative overflow-hidden shadow-2xl"
+              style={{ borderRadius: "20px", height: "220px" }}
+            >
+              <img
+                src={work.image}
+                alt={work.title}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(to top, rgba(0,0,0,0.70) 0%, rgba(0,0,0,0.15) 45%, transparent 70%)",
+                }}
+              />
+              <div className="absolute top-3 left-3">
+                <span className="bg-neon-green text-[#0a0a0a] font-sans font-black text-[9px] tracking-[0.15em] uppercase px-2 py-0.5">
+                  {work.category}
+                </span>
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 p-4">
+                <p className="font-display text-white uppercase text-[18px] leading-tight tracking-tight m-0 mb-2 drop-shadow">
+                  {work.title}
+                </p>
+                <div className="flex flex-wrap gap-1">
+                  {work.tags.slice(0, 2).map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-white/50 font-mono text-[9px] tracking-widest uppercase border border-white/20 px-1.5 py-0.5"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* ── Desktop: Fan card container (hidden on mobile) ── */}
       <div
-        className="relative w-full flex items-end justify-center -mt-6 z-[2]"
+        className="hidden md:flex relative w-full items-end justify-center -mt-6 z-[2]"
         style={{ height: "clamp(300px, 35vh, 480px)" }}
       >
         {displayWorks.map((work, idx) => {
@@ -80,7 +131,6 @@ export function Works() {
           const isHovered = hoveredIdx === idx;
           const anyHovered = hoveredIdx !== null;
 
-          // When another card is hovered, push this card away from it
           let pushX = 0;
           if (anyHovered && !isHovered && hoveredIdx !== null) {
             pushX = idx < hoveredIdx ? -60 : 60;
@@ -124,19 +174,15 @@ export function Works() {
               onMouseLeave={() => setHoveredIdx(null)}
               onClick={() => navigate(`/work/${work.id}`)}
             >
-              {/* Card */}
               <div
                 className="w-full h-full relative overflow-hidden shadow-2xl"
                 style={{ borderRadius: "20px" }}
               >
-                {/* Image */}
                 <img
                   src={work.image}
                   alt={work.title}
                   className="absolute inset-0 w-full h-full object-cover"
                 />
-
-                {/* Always-on gradient at bottom */}
                 <div
                   className="absolute inset-0"
                   style={{
@@ -144,15 +190,11 @@ export function Works() {
                       "linear-gradient(to top, rgba(0,0,0,0.70) 0%, rgba(0,0,0,0.15) 45%, transparent 70%)",
                   }}
                 />
-
-                {/* Category badge */}
                 <div className="absolute top-3 left-3">
                   <span className="bg-neon-green text-[#0a0a0a] font-sans font-black text-[9px] tracking-[0.15em] uppercase px-2 py-0.5">
                     {work.category}
                   </span>
                 </div>
-
-                {/* Title + tags at bottom */}
                 <div className="absolute bottom-0 left-0 right-0 p-4">
                   <p className="font-display text-white uppercase text-[clamp(14px,1.5vw,20px)] leading-tight tracking-tight m-0 mb-2 drop-shadow">
                     {work.title}

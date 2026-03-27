@@ -133,14 +133,14 @@ export function WorkDetail() {
             {/* Previous */}
             <button
               onClick={() => navigate(`/work/${prevWork.id}`)}
-              className="group flex items-center gap-4 text-left"
+              className="group flex items-center gap-3 text-left min-w-0 max-w-[42%]"
             >
-              <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:border-neon-green group-hover:bg-neon-green/10 transition-all">
+              <div className="shrink-0 w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:border-neon-green group-hover:bg-neon-green/10 transition-all">
                 <ChevronLeft className="w-5 h-5 text-white/60 group-hover:text-neon-green transition-colors" />
               </div>
-              <div>
+              <div className="min-w-0">
                 <p className="text-[11px] font-mono uppercase tracking-widest text-white/40 mb-1">上一个</p>
-                <p className="text-white font-display text-lg md:text-xl uppercase tracking-tight group-hover:text-neon-green transition-colors">
+                <p className="text-white font-display text-lg md:text-xl uppercase tracking-tight group-hover:text-neon-green transition-colors truncate">
                   {prevWork.title}
                 </p>
               </div>
@@ -149,15 +149,15 @@ export function WorkDetail() {
             {/* Next */}
             <button
               onClick={() => navigate(`/work/${nextWork.id}`)}
-              className="group flex items-center gap-4 text-right"
+              className="group flex items-center gap-3 text-right min-w-0 max-w-[42%]"
             >
-              <div className="text-right">
+              <div className="min-w-0 text-right">
                 <p className="text-[11px] font-mono uppercase tracking-widest text-white/40 mb-1">下一个</p>
-                <p className="text-white font-display text-lg md:text-xl uppercase tracking-tight group-hover:text-neon-green transition-colors">
+                <p className="text-white font-display text-lg md:text-xl uppercase tracking-tight group-hover:text-neon-green transition-colors truncate">
                   {nextWork.title}
                 </p>
               </div>
-              <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:border-neon-green group-hover:bg-neon-green/10 transition-all">
+              <div className="shrink-0 w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:border-neon-green group-hover:bg-neon-green/10 transition-all">
                 <ChevronRight className="w-5 h-5 text-white/60 group-hover:text-neon-green transition-colors" />
               </div>
             </button>

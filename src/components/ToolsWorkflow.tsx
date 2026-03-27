@@ -97,7 +97,7 @@ export function ToolsWorkflow() {
         transition={{ duration: 1, delay: 0.3, type: "spring", bounce: 0.3 }}
         className="absolute font-babylonica text-neon-green pointer-events-none select-none"
         style={{
-          fontSize: "clamp(180px, 38vw, 560px)",
+          fontSize: "clamp(80px, 38vw, 560px)",
           fontStyle: "italic",
           lineHeight: 1,
           top: "15%",

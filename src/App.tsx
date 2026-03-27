@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
@@ -15,6 +16,18 @@ import { Footer } from "./components/Footer";
 import { CustomCursor } from "./components/CustomCursor";
 import { WorkDetail } from "./components/WorkDetail";
 
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== "undefined" ? window.innerWidth < 768 : false
+  );
+  useEffect(() => {
+    const handler = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handler);
+    return () => window.removeEventListener("resize", handler);
+  }, []);
+  return isMobile;
+}
+
 function ParallaxSection({ 
   children, 
   speed = 0, 
@@ -24,12 +37,15 @@ function ParallaxSection({
   speed?: number; 
   className?: string;
 }) {
+  const isMobile = useIsMobile();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"]
   });
-  const y = useTransform(scrollYProgress, [0, 1], [speed * 100, -speed * 100]);
+  // Disable parallax on mobile to prevent layout clipping
+  const effectiveSpeed = isMobile ? 0 : speed;
+  const y = useTransform(scrollYProgress, [0, 1], [effectiveSpeed * 100, -effectiveSpeed * 100]);
 
   return (
     <div ref={ref} className={className}>

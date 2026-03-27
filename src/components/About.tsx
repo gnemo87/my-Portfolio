@@ -157,7 +157,7 @@ export function About() {
 
 
   return (
-    <section id="about" ref={sectionRef} className="py-32 md:py-48 lg:py-64 relative z-10 overflow-hidden">
+    <section id="about" ref={sectionRef} className="py-16 md:py-48 lg:py-64 relative z-10 overflow-hidden">
 
       {/* Background video — same as Works */}
       <video
